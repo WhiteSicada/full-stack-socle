@@ -1,4 +1,4 @@
-package com.example.basebackend.constroller;
+package com.example.basebackend.controller;
 
 import com.example.basebackend.payload.request.StudentRequest;
 import com.example.basebackend.payload.response.StudentResponse;
