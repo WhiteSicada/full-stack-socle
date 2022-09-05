@@ -1,8 +1,10 @@
 package com.example.basebackend.convertor;
 
 import com.example.basebackend.model.Passport;
+import com.example.basebackend.model.Student;
 import com.example.basebackend.payload.request.PassportRequest;
 import com.example.basebackend.payload.response.PassportResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,11 +13,15 @@ import java.util.stream.Collectors;
 @Component
 public class PassportConvertor {
 
+   // CONVERTORS
+   @Autowired
+   private StudentConvertor studentConvertor;
+
    public PassportResponse toDto(Passport passport) {
       PassportResponse passportResponse = new PassportResponse();
       passportResponse.setId(passport.getId());
       passportResponse.setNumber(passport.getNumber());
-      passportResponse.setStudent(passport.getStudent());
+      passportResponse.setStudent(studentConvertor.toDto(passport.getStudent()));
       return passportResponse;
    }
 
@@ -24,8 +30,10 @@ public class PassportConvertor {
    }
 
    public Passport toEntity(PassportRequest passportRequest) {
-      Passport passport = new Passport();
+      return new Passport(passportRequest.getNumber());
+   }
+
+   public void oldToNew(Passport passport, PassportRequest passportRequest) {
       passport.setNumber(passportRequest.getNumber());
-      return passport;
    }
 }

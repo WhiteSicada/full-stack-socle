@@ -17,7 +17,7 @@ public class StudentConvertor {
       studentResponse.setFirstName(student.getFirstName());
       studentResponse.setLastName(student.getLastName());
       studentResponse.setEmail(student.getEmail());
-      studentResponse.setPassport(student.getPassport());
+      studentResponse.setPassport(student.getPassport() != null ? student.getPassport().getNumber() : null);
       return studentResponse;
    }
 

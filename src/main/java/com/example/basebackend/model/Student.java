@@ -1,5 +1,6 @@
 package com.example.basebackend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +21,11 @@ public class Student {
 
    // OWNING SIDE
    @OneToOne
-   @JoinColumn(name = "passport_id")
+   @JoinColumn(name = "passport_id", referencedColumnName = "id")
    private Passport passport;
+
+   public void addPassport(Passport passport) {
+      this.setPassport(passport);
+   }
 
 }

@@ -1,6 +1,5 @@
 package com.example.basebackend.payload.response;
 
-import com.example.basebackend.model.Passport;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,5 +10,5 @@ public class StudentResponse {
    private String firstName;
    private String lastName;
    private String email;
-   private Passport passport;
+   private String passport;
 }
