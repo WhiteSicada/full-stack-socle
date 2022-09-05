@@ -1,8 +1,12 @@
 package com.example.basebackend.convertor;
 
+import com.example.basebackend.model.Passport;
 import com.example.basebackend.model.Student;
 import com.example.basebackend.payload.request.StudentRequest;
+import com.example.basebackend.payload.response.PassportDetailsResponse;
+import com.example.basebackend.payload.response.StudentDetailsResponse;
 import com.example.basebackend.payload.response.StudentResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,8 +21,25 @@ public class StudentConvertor {
       studentResponse.setFirstName(student.getFirstName());
       studentResponse.setLastName(student.getLastName());
       studentResponse.setEmail(student.getEmail());
-      studentResponse.setPassport(student.getPassport() != null ? student.getPassport().getNumber() : null);
+      studentResponse.setPassport(
+            student.getPassport() != null
+                  ? toPassportDetails(student.getPassport())
+                  : null
+      );
       return studentResponse;
+   }
+
+   public StudentDetailsResponse toStudentDetails(Student student) {
+      StudentDetailsResponse studentResponse = new StudentDetailsResponse();
+      studentResponse.setId(student.getId());
+      studentResponse.setFirstName(student.getFirstName());
+      studentResponse.setLastName(student.getLastName());
+      studentResponse.setEmail(student.getEmail());
+      return studentResponse;
+   }
+
+   public PassportDetailsResponse toPassportDetails(Passport passport){
+      return new PassportDetailsResponse(passport.getId(),passport.getNumber());
    }
 
    public List<StudentResponse> toDtos(List<Student> students) {

@@ -5,8 +5,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class PassportResponse {
+public class StudentDetailsResponse {
    private Long id;
-   private String number;
-   private StudentDetailsResponse student;
+   private String firstName;
+   private String lastName;
+   private String email;
 }

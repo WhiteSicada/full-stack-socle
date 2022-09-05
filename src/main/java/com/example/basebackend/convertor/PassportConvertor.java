@@ -21,9 +21,11 @@ public class PassportConvertor {
       PassportResponse passportResponse = new PassportResponse();
       passportResponse.setId(passport.getId());
       passportResponse.setNumber(passport.getNumber());
-      passportResponse.setStudent(studentConvertor.toDto(passport.getStudent()));
+      passportResponse.setStudent(studentConvertor.toStudentDetails(passport.getStudent()));
       return passportResponse;
    }
+
+
 
    public List<PassportResponse> toDtos(List<Passport> passports) {
       return passports.stream().map(this::toDto).collect(Collectors.toList());
