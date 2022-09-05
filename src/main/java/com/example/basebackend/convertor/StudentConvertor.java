@@ -1,8 +1,10 @@
 package com.example.basebackend.convertor;
 
+import com.example.basebackend.model.Car;
 import com.example.basebackend.model.Passport;
 import com.example.basebackend.model.Student;
 import com.example.basebackend.payload.request.StudentRequest;
+import com.example.basebackend.payload.response.CarResponse;
 import com.example.basebackend.payload.response.PassportDetailsResponse;
 import com.example.basebackend.payload.response.StudentDetailsResponse;
 import com.example.basebackend.payload.response.StudentResponse;
@@ -15,6 +17,9 @@ import java.util.stream.Collectors;
 @Component
 public class StudentConvertor {
 
+   @Autowired
+   private CarConvertor carConvertor;
+
    public StudentResponse toDto(Student student) {
       StudentResponse studentResponse = new StudentResponse();
       studentResponse.setId(student.getId());
@@ -24,6 +29,11 @@ public class StudentConvertor {
       studentResponse.setPassport(
             student.getPassport() != null
                   ? toPassportDetails(student.getPassport())
+                  : null
+      );
+      studentResponse.setCars(
+            student.getCars() != null
+                  ? carConvertor.toDtos(student.getCars())
                   : null
       );
       return studentResponse;

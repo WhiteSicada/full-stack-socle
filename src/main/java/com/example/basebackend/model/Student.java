@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,8 +26,24 @@ public class Student {
    @JoinColumn(name = "passport_id", referencedColumnName = "id")
    private Passport passport;
 
+
+   @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+   private List<Car> cars = new ArrayList<>();
+
+   // Passport
    public void addPassport(Passport passport) {
       this.setPassport(passport);
+   }
+
+   // CARS
+   public void addCar(Car car) {
+      this.getCars().add(car);
+      car.setStudent(this);
+   }
+
+   public void removeCar(Car car) {
+      this.getCars().remove(car);
+      car.setStudent(null);
    }
 
 }
