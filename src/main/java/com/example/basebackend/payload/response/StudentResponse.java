@@ -14,4 +14,5 @@ public class StudentResponse {
    private String email;
    private PassportDetailsResponse passport;
    private List<CarResponse> cars;
+   private List<TagResponse> tags;
 }

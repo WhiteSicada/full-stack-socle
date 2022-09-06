@@ -17,8 +17,13 @@ import java.util.stream.Collectors;
 @Component
 public class StudentConvertor {
 
+   // CONVERTORS
+   @Autowired
+   private SharedConvertor sharedConvertor;
    @Autowired
    private CarConvertor carConvertor;
+   @Autowired
+   private TagConvertor tagConvertor;
 
    public StudentResponse toDto(Student student) {
       StudentResponse studentResponse = new StudentResponse();
@@ -28,7 +33,7 @@ public class StudentConvertor {
       studentResponse.setEmail(student.getEmail());
       studentResponse.setPassport(
             student.getPassport() != null
-                  ? toPassportDetails(student.getPassport())
+                  ? sharedConvertor.toPassportDetails(student.getPassport())
                   : null
       );
       studentResponse.setCars(
@@ -36,21 +41,15 @@ public class StudentConvertor {
                   ? carConvertor.toDtos(student.getCars())
                   : null
       );
+      studentResponse.setTags(
+            student.getTags() != null
+                  ? tagConvertor.toDtos(student.getTags())
+                  : null
+      );
       return studentResponse;
    }
 
-   public StudentDetailsResponse toStudentDetails(Student student) {
-      StudentDetailsResponse studentResponse = new StudentDetailsResponse();
-      studentResponse.setId(student.getId());
-      studentResponse.setFirstName(student.getFirstName());
-      studentResponse.setLastName(student.getLastName());
-      studentResponse.setEmail(student.getEmail());
-      return studentResponse;
-   }
 
-   public PassportDetailsResponse toPassportDetails(Passport passport){
-      return new PassportDetailsResponse(passport.getId(),passport.getNumber());
-   }
 
    public List<StudentResponse> toDtos(List<Student> students) {
       return students.stream().map(this::toDto).collect(Collectors.toList());
@@ -63,4 +62,6 @@ public class StudentConvertor {
       student.setEmail(studentRequest.getEmail());
       return student;
    }
+
+
 }

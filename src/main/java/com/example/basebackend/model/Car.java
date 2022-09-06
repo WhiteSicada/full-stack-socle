@@ -17,6 +17,7 @@ public class Car {
    private String model;
    private String year;
 
+   // A CAR BELONGS TO A STUDENT
    @ManyToOne()
    @JoinColumn(name = "student_id")
    private Student student;

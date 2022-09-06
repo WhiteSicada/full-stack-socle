@@ -1,6 +1,5 @@
 package com.example.basebackend.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +16,7 @@ public class Passport {
 
    private String number;
 
+   // PASSPORT HAVE ONE STUDENT
    @OneToOne(mappedBy = "passport")
    private Student student;
 

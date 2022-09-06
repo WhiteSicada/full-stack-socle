@@ -14,7 +14,7 @@ public class ControllerAdvice {
 
    @ExceptionHandler(value = {
          AlreadyExistsException.class,
-         NotFoundException.class
+         NotFoundException.class,
    })
    public ApiError CustomException(Exception ex, WebRequest request) {
       ArrayList<String> messages = new ArrayList<>();

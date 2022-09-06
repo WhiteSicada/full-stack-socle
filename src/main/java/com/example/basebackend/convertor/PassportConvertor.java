@@ -1,7 +1,6 @@
 package com.example.basebackend.convertor;
 
 import com.example.basebackend.model.Passport;
-import com.example.basebackend.model.Student;
 import com.example.basebackend.payload.request.PassportRequest;
 import com.example.basebackend.payload.response.PassportResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +14,13 @@ public class PassportConvertor {
 
    // CONVERTORS
    @Autowired
-   private StudentConvertor studentConvertor;
+   private SharedConvertor sharedConvertor;
 
    public PassportResponse toDto(Passport passport) {
       PassportResponse passportResponse = new PassportResponse();
       passportResponse.setId(passport.getId());
       passportResponse.setNumber(passport.getNumber());
-      passportResponse.setStudent(studentConvertor.toStudentDetails(passport.getStudent()));
+      passportResponse.setStudent(sharedConvertor.toStudentDetail(passport.getStudent()));
       return passportResponse;
    }
 
