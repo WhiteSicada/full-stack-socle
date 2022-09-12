@@ -1,10 +1,7 @@
 package com.example.basebackend.controller;
 
 import com.example.basebackend.payload.request.CarRequest;
-import com.example.basebackend.payload.request.PassportRequest;
 import com.example.basebackend.payload.response.CarResponse;
-import com.example.basebackend.payload.response.PassportResponse;
-import com.example.basebackend.payload.response.StudentResponse;
 import com.example.basebackend.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +10,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@CrossOrigin(value = "*")
 public class CarController {
 
    // SERVICES
@@ -29,7 +27,7 @@ public class CarController {
       return carService.createCar(studentId, carRequest);
    }
 
-   @PatchMapping("/api/cars/{carId}/")
+      @PatchMapping("/api/cars/{carId}/")
    public CarResponse updateCar(@PathVariable Long carId, @Valid @RequestBody CarRequest carRequest) {
       return carService.updateCar(carId, carRequest);
    }

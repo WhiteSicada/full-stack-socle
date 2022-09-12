@@ -14,4 +14,6 @@ public interface PassportService {
    PassportResponse updatePassport(Long passportId, PassportRequest passportRequest);
 
    String deletePassport(Long passportId);
+
+   PassportResponse getPassport(Long studentId);
 }

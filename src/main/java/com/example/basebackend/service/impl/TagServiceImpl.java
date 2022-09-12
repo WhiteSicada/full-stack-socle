@@ -2,7 +2,7 @@ package com.example.basebackend.service.impl;
 
 import com.example.basebackend.convertor.StudentConvertor;
 import com.example.basebackend.convertor.TagConvertor;
-import com.example.basebackend.exception.NotFoundException;
+import com.example.basebackend.exception.errors.NotFoundException;
 import com.example.basebackend.model.Student;
 import com.example.basebackend.model.Tag;
 import com.example.basebackend.payload.request.TagRequest;

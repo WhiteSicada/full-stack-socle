@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@CrossOrigin(value = "*")
 public class PassportController {
 
    // SERVICES
@@ -21,6 +21,11 @@ public class PassportController {
    @GetMapping("/api/passports/")
    public List<PassportResponse> getAllPassports() {
       return passportService.getAllPassports();
+   }
+
+   @GetMapping("/api/students/{studentId}/passport/")
+   public PassportResponse getPassport(@PathVariable Long studentId) {
+      return passportService.getPassport(studentId);
    }
 
    @PostMapping("/api/students/{studentId}/passports/")

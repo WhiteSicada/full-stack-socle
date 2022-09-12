@@ -2,8 +2,7 @@ package com.example.basebackend.service.impl;
 
 import com.example.basebackend.convertor.PassportConvertor;
 import com.example.basebackend.convertor.StudentConvertor;
-import com.example.basebackend.exception.AlreadyExistsException;
-import com.example.basebackend.exception.NotFoundException;
+import com.example.basebackend.exception.errors.NotFoundException;
 import com.example.basebackend.model.Passport;
 import com.example.basebackend.model.Student;
 import com.example.basebackend.payload.request.PassportRequest;
@@ -64,5 +63,16 @@ public class PassportServiceImpl implements PassportService {
       passportRepository.save(passport);
       passportRepository.deleteById(passportId);
       return "passport deleted successfully !";
+   }
+
+   @Override
+   public PassportResponse getPassport(Long studentId) {
+      Student student = studentRepository.findById(studentId)
+            .orElseThrow(() -> new NotFoundException("Student not found !"));
+      Passport passport = student.getPassport();
+      if (passport == null) {
+         throw new NotFoundException("Passport Not Found !");
+      }
+      return passportConvertor.toDto(passport);
    }
 }

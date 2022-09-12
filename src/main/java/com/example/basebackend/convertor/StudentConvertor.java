@@ -64,4 +64,9 @@ public class StudentConvertor {
    }
 
 
+   public void oldToNew(Student student, StudentRequest studentRequest) {
+      student.setFirstName(studentRequest.getFirstName());
+      student.setLastName(studentRequest.getLastName());
+      student.setEmail(studentRequest.getEmail());
+   }
 }

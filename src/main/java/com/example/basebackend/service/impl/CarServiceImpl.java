@@ -1,7 +1,7 @@
 package com.example.basebackend.service.impl;
 
 import com.example.basebackend.convertor.CarConvertor;
-import com.example.basebackend.exception.NotFoundException;
+import com.example.basebackend.exception.errors.NotFoundException;
 import com.example.basebackend.model.Car;
 import com.example.basebackend.model.Student;
 import com.example.basebackend.payload.request.CarRequest;

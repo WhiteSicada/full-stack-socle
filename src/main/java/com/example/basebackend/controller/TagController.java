@@ -1,19 +1,17 @@
 package com.example.basebackend.controller;
 
-import com.example.basebackend.model.Tag;
+
 import com.example.basebackend.payload.request.TagRequest;
 import com.example.basebackend.payload.response.StudentResponse;
 import com.example.basebackend.payload.response.TagDetailsResponse;
 import com.example.basebackend.payload.response.TagResponse;
 import com.example.basebackend.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin(value = "*")
 public class TagController {
 
    // SERVICES

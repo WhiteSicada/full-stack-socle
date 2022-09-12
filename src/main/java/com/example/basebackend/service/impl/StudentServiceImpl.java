@@ -1,20 +1,19 @@
 package com.example.basebackend.service.impl;
 
+import com.example.basebackend.convertor.SharedConvertor;
 import com.example.basebackend.convertor.StudentConvertor;
-import com.example.basebackend.exception.AlreadyExistsException;
-import com.example.basebackend.exception.NotFoundException;
+import com.example.basebackend.exception.errors.AlreadyExistsException;
+import com.example.basebackend.exception.errors.NotFoundException;
 import com.example.basebackend.model.Student;
 import com.example.basebackend.payload.request.StudentRequest;
+import com.example.basebackend.payload.response.StudentDetailsResponse;
 import com.example.basebackend.payload.response.StudentResponse;
 import com.example.basebackend.repository.StudentRepository;
 import com.example.basebackend.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ReflectionUtils;
 
-import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -26,6 +25,8 @@ public class StudentServiceImpl implements StudentService {
    // CONVERTORS
    @Autowired
    private StudentConvertor studentConvertor;
+   @Autowired
+   private SharedConvertor sharedConvertor;
 
    @Override
    public List<StudentResponse> getAllStudents() {
@@ -42,16 +43,10 @@ public class StudentServiceImpl implements StudentService {
    }
 
    @Override
-   public StudentResponse updateStudent(Long studentId, Map<Object, Object> fields) {
+   public StudentResponse updateStudent(Long studentId, StudentRequest studentRequest) {
       Student student = studentRepository.findById(studentId)
             .orElseThrow(() -> new NotFoundException("Student not found !"));
-      // Map key is field name, v is value
-      fields.forEach((key, value) -> {
-         // use reflection to get field k on manager and set it to value v
-         Field field = ReflectionUtils.findField(Student.class, (String) key);
-         field.setAccessible(true);
-         ReflectionUtils.setField(field, student, value);
-      });
+      studentConvertor.oldToNew(student,studentRequest);
       return studentConvertor.toDto(studentRepository.save(student));
    }
 
@@ -62,5 +57,12 @@ public class StudentServiceImpl implements StudentService {
       }
       studentRepository.deleteById(studentId);
       return "Student deleted successfully !";
+   }
+
+   @Override
+   public StudentDetailsResponse getStudent(Long studentId) {
+      Student student = studentRepository.findById(studentId)
+            .orElseThrow(() -> new NotFoundException("Student not found !"));
+      return sharedConvertor.toStudentDetail(student);
    }
 }

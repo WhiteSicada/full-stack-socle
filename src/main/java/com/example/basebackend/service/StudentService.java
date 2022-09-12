@@ -1,6 +1,7 @@
 package com.example.basebackend.service;
 
 import com.example.basebackend.payload.request.StudentRequest;
+import com.example.basebackend.payload.response.StudentDetailsResponse;
 import com.example.basebackend.payload.response.StudentResponse;
 
 import java.util.ArrayList;
@@ -13,9 +14,10 @@ public interface StudentService {
 
    StudentResponse createStudent(StudentRequest studentRequest);
 
-   StudentResponse updateStudent(Long studentId, Map<Object, Object> fields);
+   StudentResponse updateStudent(Long studentId, StudentRequest studentRequest);
 
    String deleteStudent(Long studentId);
 
 
+   StudentDetailsResponse getStudent(Long studentId);
 }
